@@ -1,7 +1,10 @@
 export const dashboardController = {
   index: {
     handler: async function (request, h) {
-      return h.view("main");
+      const viewData = {
+        title: "Place Mark Dashboard",
+      };
+      return h.view("dashboard-view", viewData);
     },
   },
 };
