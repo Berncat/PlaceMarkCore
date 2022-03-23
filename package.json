@@ -29,6 +29,8 @@
     "prettier": "^2.6.0"
   },
   "dependencies": {
-    "@hapi/hapi": "^20.2.1"
+    "@hapi/hapi": "^20.2.1",
+    "@hapi/vision": "^6.1.0",
+    "handlebars": "^4.7.7"
   }
 }
