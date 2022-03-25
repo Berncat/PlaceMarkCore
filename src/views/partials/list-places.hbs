@@ -1,0 +1,18 @@
+{{#each places}}
+  <div class="box box-link-hover-shadow">
+    <h2 class="title">
+      {{name}}
+    </h2>
+    <form action="/dashboard/update/{{_id}}" method="POST">
+      <div class="field">
+        <label class="label">Update Place Mark Name</label>
+        <input class="input" type="text" placeholder="Update place mark name" name="name" />
+      </div>
+      <button class="button is-link">Update</button>
+    </form>
+    <br>
+    <a href="/dashboard/delete/{{_id}}" class="button">
+      <i class="fas fa-trash"></i>
+    </a>
+  </div>
+{{/each}}

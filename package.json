@@ -1,0 +1,38 @@
+{
+  "name": "placemarkcore",
+  "version": "1.0.0",
+  "description": "A point of interest web application",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "lint": "eslint . --ext .js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Berncat/PlaceMarkCore.git"
+  },
+  "keywords": [
+    "poi"
+  ],
+  "author": "Bernard Cattigan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Berncat/PlaceMarkCore/issues"
+  },
+  "homepage": "https://github.com/Berncat/PlaceMarkCore#readme",
+  "devDependencies": {
+    "eslint": "^8.11.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.25.4",
+    "prettier": "^2.6.0"
+  },
+  "dependencies": {
+    "@hapi/boom": "^9.1.4",
+    "@hapi/hapi": "^20.2.1",
+    "@hapi/vision": "^6.1.0",
+    "handlebars": "^4.7.7",
+    "uuid": "^8.3.2"
+  }
+}
