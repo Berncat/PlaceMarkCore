@@ -29,7 +29,7 @@ async function init() {
     layout: true,
     isCached: false,
   });
-  
+
   db.init();
   server.route(webRoutes);
   server.route(apiRoutes);

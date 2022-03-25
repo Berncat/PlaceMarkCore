@@ -33,7 +33,7 @@ export const dashboardController = {
   updatePlace: {
     handler: async function (request, h) {
       const place = await db.placeStore.getPlaceById(request.params.id);
-      place.name = request.payload.name
+      place.name = request.payload.name;
       return h.redirect("/dashboard");
     },
   },
