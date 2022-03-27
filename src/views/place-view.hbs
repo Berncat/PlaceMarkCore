@@ -1,0 +1,27 @@
+{{> menu}}
+
+<section class="section">
+  <div class="title">
+    {{theme.name}}/{{place.name}}
+  </div>
+  <form class="box"  action="/theme/{{theme._id}}/update/{{place._id}}" method="POST">
+    <label>Update Place Details:</label>
+    <div class="field is-horizontal">
+      <div class="field-body">
+        <div class="field">
+          <input class="input" type="text" name="name", value="{{place.name}}">
+        </div>
+        <div class="field">
+          <input class="input" type="text" name="lon" value="{{place.lon}}">
+        </div>
+        <div class="field">
+          <input class="input" type="text"  name="lat" value="{{place.lat}}">
+        </div>
+        <div class="field">
+          <input class="input" type="text"  name="desc" value="{{place.desc}}">
+        </div>
+      </div>
+    </div>
+    <button class="button is-primary">Update Place</button>
+  </form>
+</section>

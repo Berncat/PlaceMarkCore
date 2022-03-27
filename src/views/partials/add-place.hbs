@@ -1,6 +1,21 @@
-<form action="/dashboard/add" method="POST">
-  <div class="field">
-    <label class="label">Place Mark Name</label> <input class="input" type="text" placeholder="Enter place mark name" name="name">
+<form class="box" action="/theme/{{theme._id}}/add" method="POST">
+  <label>Enter Place Details:</label>
+  <div class="field is-horizontal">
+    <div class="field-body">
+      <div class="field">
+        <input class="input" type="text" placeholder="Enter Name" name="name">
+      </div>
+      <div class="field">
+        <input class="input" type="text" placeholder="Enter Longitude" name="lon">
+      </div>
+      <div class="field">
+        <input class="input" type="text" placeholder="Enter Latitude" name="lat">
+      </div>
+      <div class="field">
+        <input class="input" type="text" placeholder="Enter Description" name="desc">
+      </div>
+    </div>
   </div>
-  <button class="button is-link">Add Place Mark</button>
+  <button class="button is-primary">Add Place</button>
 </form>
+

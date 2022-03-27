@@ -1,13 +1,13 @@
 import Boom from "@hapi/boom";
 import { db } from "../models/db.js";
 
-export const placeApi = {
+export const themeApi = {
   find: {
     auth: false,
     handler: async function (request, h) {
       try {
-        const places = await db.placeStore.getAllPlaces();
-        return places;
+        const themes = await db.themeStore.getAllThemes();
+        return themes;
       } catch (err) {
         return Boom.serverUnavailable("Database Error");
       }
@@ -18,11 +18,11 @@ export const placeApi = {
     auth: false,
     async handler(request) {
       try {
-        const place = await db.placeStore.getPlaceById(request.params.id);
-        if (!place) {
-          return Boom.notFound("No Place with this id");
+        const theme = await db.themeStore.getThemeById(request.params.id);
+        if (!theme) {
+          return Boom.notFound("No Theme with this id");
         }
-        return place;
+        return theme;
       } catch (err) {
         return Boom.serverUnavailable("Database Error");
       }
@@ -33,12 +33,12 @@ export const placeApi = {
     auth: false,
     handler: async function (request, h) {
       try {
-        const place = request.payload;
-        const newPlace = await db.placeStore.addPlace(place);
-        if (newPlace) {
-          return h.response(newPlace).code(201);
+        const theme = request.payload;
+        const newTheme = await db.themeStore.addTheme(theme);
+        if (newTheme) {
+          return h.response(newTheme).code(201);
         }
-        return Boom.badImplementation("error creating place");
+        return Boom.badImplementation("error creating theme");
       } catch (err) {
         return Boom.serverUnavailable("Database Error");
       }
@@ -49,11 +49,11 @@ export const placeApi = {
     auth: false,
     handler: async function (request, h) {
       try {
-        const place = await db.placeStore.getPlaceById(request.params.id);
-        if (!place) {
-          return Boom.notFound("No Place with this id");
+        const theme = await db.themeStore.getThemeById(request.params.id);
+        if (!theme) {
+          return Boom.notFound("No Theme with this id");
         }
-        await db.placeStore.deletePlaceById(place._id);
+        await db.themeStore.deleteThemeById(theme._id);
         return h.response().code(204);
       } catch (err) {
         return Boom.serverUnavailable("Database Error");
@@ -65,7 +65,7 @@ export const placeApi = {
     auth: false,
     handler: async function (request, h) {
       try {
-        await db.placeStore.deleteAllPlaces();
+        await db.themeStore.deleteAllThemes();
         return h.response().code(204);
       } catch (err) {
         return Boom.serverUnavailable("Database Error");
@@ -73,3 +73,4 @@ export const placeApi = {
     },
   },
 };
+

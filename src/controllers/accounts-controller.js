@@ -15,7 +15,7 @@ export const accountsController = {
     handler: async function (request, h) {
       const user = request.payload;
       await db.userStore.addUser(user);
-      return h.redirect("/");
+      return h.redirect("/login");
     },
   },
   showLogin: {
@@ -39,3 +39,4 @@ export const accountsController = {
     },
   },
 };
+

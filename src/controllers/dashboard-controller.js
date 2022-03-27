@@ -3,37 +3,40 @@ import { db } from "../models/db.js";
 export const dashboardController = {
   index: {
     handler: async function (request, h) {
-      const places = await db.placeStore.getAllPlaces();
+      const themes = await db.themeStore.getAllThemes();
       const viewData = {
         title: "Place Mark Dashboard",
-        places: places,
+        themes: themes,
       };
       return h.view("dashboard-view", viewData);
     },
   },
 
-  addPlace: {
+  addTheme: {
     handler: async function (request, h) {
-      const newPlace = {
+      const newTheme = {
         name: request.payload.name,
       };
-      await db.placeStore.addPlace(newPlace);
+      await db.themeStore.addTheme(newTheme);
       return h.redirect("/dashboard");
     },
   },
 
-  deletePlace: {
+  deleteTheme: {
     handler: async function (request, h) {
-      const place = await db.placeStore.getPlaceById(request.params.id);
-      await db.placeStore.deletePlaceById(place._id);
+      const theme = await db.themeStore.getThemeById(request.params.id);
+      await db.themeStore.deleteThemeById(theme._id);
       return h.redirect("/dashboard");
     },
   },
 
-  updatePlace: {
+  updateTheme: {
     handler: async function (request, h) {
-      const place = await db.placeStore.getPlaceById(request.params.id);
-      place.name = request.payload.name;
+      const theme = await db.themeStore.getThemeById(request.params.id);
+      const updatedTheme = {
+        name: request.payload.name,
+      };
+      await db.themeStore.updateTheme(theme, updatedTheme);
       return h.redirect("/dashboard");
     },
   },

@@ -1,0 +1,22 @@
+{{#each themes}}
+  <div class="box box-link-hover-shadow">
+    <h2 class="title">
+      {{name}}
+          <a href="/theme/{{_id}}" class="button">
+      <span class="icon is-small">
+        <i class="fas fa-folder-open"></i>
+      </span>
+    </a>
+          <a href="/dashboard/delete/{{_id}}" class="button">
+      <i class="fas fa-trash"></i>
+    </a>
+    </h2>
+    <form action="/dashboard/update/{{_id}}" method="POST">
+      <div class="field">
+        <label class="label">Update Place Mark App Theme Name</label>
+        <input class="input" type="text" placeholder="Enter new name for Place Mark app theme" name="name" />
+      </div>
+      <button class="button is-link">Update</button>
+    </form>
+  </div>
+{{/each}}
