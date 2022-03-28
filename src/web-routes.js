@@ -20,6 +20,6 @@ export const webRoutes = [
   { method: "POST", path: "/theme/{id}/add", config: themeController.addPlace },
   { method: "GET", path: "/theme/{id}/delete/{placeid}", config: themeController.deletePlace },
 
-  { method: "GET", path: "/theme/{id}/update/{placeid}", config: placeController.index },
+  { method: "GET", path: "/theme/{id}/{placeid}", config: placeController.index },
   { method: "POST", path: "/theme/{id}/update/{placeid}", config: placeController.updatePlace },
 ];

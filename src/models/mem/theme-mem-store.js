@@ -20,6 +20,10 @@ export const themeMemStore = {
     return themes.find((theme) => theme._id === id);
   },
 
+  async getUserThemes(userid) {
+    return themes.filter((theme) => theme.userid === userid);
+  },
+
   async deleteThemeById(id) {
     const index = themes.findIndex((theme) => theme._id === id);
     themes.splice(index, 1);
