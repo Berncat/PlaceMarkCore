@@ -49,7 +49,6 @@ export const themeController = {
   async checkUser(request, theme) {
     const loggedInUser = request.auth.credentials;
     const themes = await db.themeStore.getUserThemes(loggedInUser._id);
-    console.log(themes.some((check) => check._id === theme._id));
     return themes.some((check) => check._id === theme._id);
   },
 };

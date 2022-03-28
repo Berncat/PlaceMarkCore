@@ -29,4 +29,11 @@ export const userMemStore = {
   async deleteAll() {
     users = [];
   },
+
+  async updateUser(user, updatedUser) {
+    user.firstName = updatedUser.firstName;
+    user.lastName = updatedUser.lastName;
+    user.email = updatedUser.email;
+    user.password = updatedUser.password;
+  },
 };

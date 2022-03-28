@@ -23,12 +23,7 @@ export const placeController = {
       const theme = await db.themeStore.getThemeById(request.params.id);
       const flag = await placeController.checkUser(request, theme);
       const place = await db.placeStore.getPlaceById(request.params.placeid);
-      const newPlace = {
-        name: request.payload.name,
-        lon: request.payload.lon,
-        lat: request.payload.lat,
-        desc: request.payload.desc,
-      };
+      const newPlace = request.payload;
       if (flag) {
         await db.placeStore.updatePlace(place, newPlace);
         return h.redirect(`/theme/${request.params.id}`);
@@ -40,7 +35,6 @@ export const placeController = {
   async checkUser(request, theme) {
     const loggedInUser = request.auth.credentials;
     const themes = await db.themeStore.getUserThemes(loggedInUser._id);
-    console.log(themes.some((check) => check._id === theme._id));
     return themes.some((check) => check._id === theme._id);
   },
 };

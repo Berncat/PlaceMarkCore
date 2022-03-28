@@ -17,6 +17,11 @@ export const accountsController = {
     auth: false,
     handler: async function (request, h) {
       const user = request.payload;
+      const users = await db.userStore.getAllUsers();
+      const flag = users.some((check) => check.email === user.email);
+      if (flag) {
+        return h.redirect("/signup");
+      }
       await db.userStore.addUser(user);
       return h.redirect("/login");
     },
@@ -44,6 +49,31 @@ export const accountsController = {
     handler: function (request, h) {
       request.cookieAuth.clear();
       return h.redirect("/");
+    },
+  },
+  showUser: {
+    handler: function (request, h) {
+      const loggedInUser = request.auth.credentials;
+      const viewData = {
+        title: "User Dashboard",
+        user: loggedInUser,
+      };
+      return h.view("user-view", viewData);
+    },
+  },
+  updateUser: {
+    handler: async function (request, h) {
+      const updatedUser = request.payload;
+      const loggedInUser = request.auth.credentials;
+      const users = await db.userStore.getAllUsers();
+      const flag = users.some((check) => check.email === updatedUser.email);
+      if (loggedInUser.email !== updatedUser.email) {
+        if (flag) {
+          return h.redirect("/user");
+        }
+      }
+      await db.userStore.updateUser(loggedInUser, updatedUser);
+      return h.redirect("/dashboard");
     },
   },
 
