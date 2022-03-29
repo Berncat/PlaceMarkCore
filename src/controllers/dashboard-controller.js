@@ -1,4 +1,5 @@
 import { db } from "../models/db.js";
+import { ThemeSpec } from "../models/joi-schemas.js";
 
 export const dashboardController = {
   index: {
@@ -15,6 +16,13 @@ export const dashboardController = {
   },
 
   addTheme: {
+    validate: {
+      payload: ThemeSpec,
+      options: { abortEarly: false },
+      failAction: function (request, h, error) {
+        return h.view("error-view", { title: "Add Theme error", errors: error.details }).takeover().code(400);
+      },
+    },
     handler: async function (request, h) {
       const loggedInUser = request.auth.credentials;
       const newTheme = {
@@ -39,6 +47,14 @@ export const dashboardController = {
   },
 
   updateTheme: {
+    validate: {
+      payload: ThemeSpec,
+      options: { abortEarly: false },
+      failAction: function (request, h, error) {
+        h.redirect("/dashboard");
+        return h.view("error-view", { title: "Update Theme error", errors: error.details }).takeover().code(400);
+      },
+    },
     handler: async function (request, h) {
       const theme = await db.themeStore.getThemeById(request.params.id);
       const flag = await dashboardController.checkUser(request, theme);

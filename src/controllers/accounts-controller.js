@@ -1,4 +1,5 @@
 import { db } from "../models/db.js";
+import { UserSpec, UserCredentialsSpec } from "../models/joi-schemas.js";
 
 export const accountsController = {
   index: {
@@ -7,14 +8,23 @@ export const accountsController = {
       return h.view("main", { title: "Welcome to Place Mark" });
     },
   },
+
   showSignup: {
     auth: false,
     handler: function (request, h) {
       return h.view("signup-view", { title: "Sign up for Place Mark" });
     },
   },
+
   signup: {
     auth: false,
+    validate: {
+      payload: UserSpec,
+      options: { abortEarly: false },
+      failAction: function (request, h, error) {
+        return h.view("error-view", { title: "Sign up error", errors: error.details }).takeover().code(400);
+      },
+    },
     handler: async function (request, h) {
       const user = request.payload;
       const users = await db.userStore.getAllUsers();
@@ -26,14 +36,23 @@ export const accountsController = {
       return h.redirect("/login");
     },
   },
+
   showLogin: {
     auth: false,
     handler: function (request, h) {
       return h.view("login-view", { title: "Login to Place Mark" });
     },
   },
+
   login: {
     auth: false,
+    validate: {
+      payload: UserCredentialsSpec,
+      options: { abortEarly: false },
+      failAction: function (request, h, error) {
+        return h.view("error-view", { title: "Log in error", errors: error.details }).takeover().code(400);
+      },
+    },
     handler: async function (request, h) {
       const { email, password } = request.payload;
       const user = await db.userStore.getUserByEmail(email);
@@ -44,6 +63,7 @@ export const accountsController = {
       return h.redirect("/dashboard");
     },
   },
+
   logout: {
     auth: false,
     handler: function (request, h) {
@@ -51,6 +71,7 @@ export const accountsController = {
       return h.redirect("/");
     },
   },
+
   showUser: {
     handler: function (request, h) {
       const loggedInUser = request.auth.credentials;
@@ -61,7 +82,15 @@ export const accountsController = {
       return h.view("user-view", viewData);
     },
   },
+  
   updateUser: {
+    validate: {
+      payload: UserSpec,
+      options: { abortEarly: false },
+      failAction: function (request, h, error) {
+        return h.view("error-view", { title: "Update User error", errors: error.details }).takeover().code(400);
+      },
+    },
     handler: async function (request, h) {
       const updatedUser = request.payload;
       const loggedInUser = request.auth.credentials;

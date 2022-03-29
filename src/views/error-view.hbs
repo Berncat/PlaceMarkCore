@@ -1,0 +1,16 @@
+{{> menu }}
+
+<section class="section">
+  {{#if errors}}
+  <div class="box content">
+    <h1 class="title">{{title}}</h1>
+    <p> There was a problem... </p>
+    <ul>
+      {{#each errors}}
+      <li>{{message}}</li>
+      {{/each}}
+    </ul>
+  </div>
+  <button onclick="history.back()" class="button is-link">Click here to go back</button>
+  {{/if}}
+</section>

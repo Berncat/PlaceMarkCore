@@ -1,4 +1,5 @@
 import { db } from "../models/db.js";
+import { PlaceSpec } from "../models/joi-schemas.js";
 
 export const placeController = {
   index: {
@@ -19,6 +20,13 @@ export const placeController = {
   },
 
   updatePlace: {
+    validate: {
+      payload: PlaceSpec,
+      options: { abortEarly: false },
+      failAction: function (request, h, error) {
+        return h.view("error-view", { title: "Update Place error", errors: error.details }).takeover().code(400);
+      },
+    },
     handler: async function (request, h) {
       const theme = await db.themeStore.getThemeById(request.params.id);
       const flag = await placeController.checkUser(request, theme);
