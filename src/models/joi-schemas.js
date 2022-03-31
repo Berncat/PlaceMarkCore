@@ -22,4 +22,3 @@ export const PlaceSpec = {
   lat: Joi.number().required(),
   desc: Joi.string().allow("").optional(),
 };
-

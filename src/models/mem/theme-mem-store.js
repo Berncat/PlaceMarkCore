@@ -17,16 +17,22 @@ export const themeMemStore = {
   async getThemeById(id) {
     const list = themes.find((theme) => theme._id === id);
     list.places = await placeMemStore.getPlacesByThemeId(list._id);
-    return themes.find((theme) => theme._id === id);
+    return list;
   },
 
-  async getUserThemes(userid) {
-    return themes.filter((theme) => theme.userid === userid);
+  async getUserThemes(userId) {
+    return themes.filter((theme) => theme.userId === userId);
   },
 
   async deleteThemeById(id) {
     const index = themes.findIndex((theme) => theme._id === id);
     themes.splice(index, 1);
+    placeMemStore.deletePlacesByThemeId(id);
+  },
+
+  async deleteUserThemes(userId) {
+    themes = themes.filter((theme) => theme.userId !== userId);
+    placeMemStore.deletePlacesByUserId(userId);
   },
 
   async deleteAllThemes() {

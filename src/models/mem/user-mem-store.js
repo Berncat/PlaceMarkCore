@@ -1,4 +1,5 @@
 import { v4 } from "uuid";
+import { themeMemStore } from "./theme-mem-store.js";
 
 let users = [];
 
@@ -24,6 +25,7 @@ export const userMemStore = {
   async deleteUserById(id) {
     const index = users.findIndex((user) => user._id === id);
     users.splice(index, 1);
+    themeMemStore.deleteUserThemes(id);
   },
 
   async deleteAll() {

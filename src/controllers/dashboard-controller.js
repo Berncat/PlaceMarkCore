@@ -19,14 +19,16 @@ export const dashboardController = {
     validate: {
       payload: ThemeSpec,
       options: { abortEarly: false },
-      failAction: function (request, h, error) {
-        return h.view("error-view", { title: "Add Theme error", errors: error.details }).takeover().code(400);
+      failAction: async function (request, h, error) {
+        const loggedInUser = request.auth.credentials;
+        const themes = await db.themeStore.getUserThemes(loggedInUser._id);
+        return h.view("dashboard-view", { title: "Add Theme error", themes, errors: error.details }).takeover().code(400);
       },
     },
     handler: async function (request, h) {
       const loggedInUser = request.auth.credentials;
       const newTheme = {
-        userid: loggedInUser._id,
+        userId: loggedInUser._id,
         name: request.payload.name,
       };
       await db.themeStore.addTheme(newTheme);
@@ -50,9 +52,10 @@ export const dashboardController = {
     validate: {
       payload: ThemeSpec,
       options: { abortEarly: false },
-      failAction: function (request, h, error) {
-        h.redirect("/dashboard");
-        return h.view("error-view", { title: "Update Theme error", errors: error.details }).takeover().code(400);
+      failAction: async function (request, h, error) {
+        const loggedInUser = request.auth.credentials;
+        const themes = await db.themeStore.getUserThemes(loggedInUser._id);
+        return h.view("dashboard-view", { title: "Update Theme error", themes, errors: error.details }).takeover().code(400);
       },
     },
     handler: async function (request, h) {

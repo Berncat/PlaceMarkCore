@@ -7,15 +7,16 @@ export const placeMemStore = {
     return places;
   },
 
-  async addPlace(themeId, place) {
+  async addPlace(userId, themeId, place) {
     place._id = v4();
-    place.themeid = themeId;
+    place.themeId = themeId;
+    place.userId = userId;
     places.push(place);
     return place;
   },
 
-  async getPlacesByThemeId(id) {
-    return places.filter((place) => place.themeid === id);
+  async getPlacesByThemeId(themeId) {
+    return places.filter((place) => place.themeId === themeId);
   },
 
   async getPlaceById(id) {
@@ -23,12 +24,20 @@ export const placeMemStore = {
   },
 
   async getThemePlaces(themeId) {
-    return places.filter((place) => place.themeid === themeId);
+    return places.filter((place) => place.themeId === themeId);
   },
 
   async deletePlace(id) {
     const index = places.findIndex((place) => place._id === id);
     places.splice(index, 1);
+  },
+
+  async deletePlacesByThemeId(themeId) {
+    places = places.filter((place) => place.themeId !== themeId);
+  },
+
+  async deletePlacesByUserId(userId) {
+    places = places.filter((place) => userId !== place.userId);
   },
 
   async deleteAllPlaces() {

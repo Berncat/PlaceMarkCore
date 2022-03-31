@@ -22,7 +22,7 @@ export const accountsController = {
       payload: UserSpec,
       options: { abortEarly: false },
       failAction: function (request, h, error) {
-        return h.view("error-view", { title: "Sign up error", errors: error.details }).takeover().code(400);
+        return h.view("signup-view", { title: "Sign up error", errors: error.details }).takeover().code(400);
       },
     },
     handler: async function (request, h) {
@@ -30,7 +30,8 @@ export const accountsController = {
       const users = await db.userStore.getAllUsers();
       const flag = users.some((check) => check.email === user.email);
       if (flag) {
-        return h.redirect("/signup");
+        const errors = [{message: "email already in use by another user"}]
+        return h.view("signup-view", { title: "Sign up error", errors })
       }
       await db.userStore.addUser(user);
       return h.redirect("/login");
@@ -50,7 +51,7 @@ export const accountsController = {
       payload: UserCredentialsSpec,
       options: { abortEarly: false },
       failAction: function (request, h, error) {
-        return h.view("error-view", { title: "Log in error", errors: error.details }).takeover().code(400);
+        return h.view("login-view", { title: "Log in error", errors: error.details }).takeover().code(400);
       },
     },
     handler: async function (request, h) {
@@ -88,7 +89,8 @@ export const accountsController = {
       payload: UserSpec,
       options: { abortEarly: false },
       failAction: function (request, h, error) {
-        return h.view("error-view", { title: "Update User error", errors: error.details }).takeover().code(400);
+        const loggedInUser = request.auth.credentials;
+        return h.view("user-view", { title: "Update User error", user: loggedInUser, errors: error.details }).takeover().code(400);
       },
     },
     handler: async function (request, h) {
@@ -98,7 +100,8 @@ export const accountsController = {
       const flag = users.some((check) => check.email === updatedUser.email);
       if (loggedInUser.email !== updatedUser.email) {
         if (flag) {
-          return h.redirect("/user");
+          const errors = [{message: "email already in use by another user"}]
+          return h.view("user-view", { title: "Update User error", user: loggedInUser, errors })
         }
       }
       await db.userStore.updateUser(loggedInUser, updatedUser);

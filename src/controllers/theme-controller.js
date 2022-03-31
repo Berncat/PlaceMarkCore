@@ -21,21 +21,18 @@ export const themeController = {
     validate: {
       payload: PlaceSpec,
       options: { abortEarly: false },
-      failAction: function (request, h, error) {
-        return h.view("error-view", { title: "Add Place error", errors: error.details }).takeover().code(400);
+      failAction: async function (request, h, error) {
+        const theme = await db.themeStore.getThemeById(request.params.id);
+        return h.view("theme-view", { title: "Add Place error", theme, errors: error.details }).takeover().code(400);
       },
     },
     handler: async function (request, h) {
+      const loggedInUser = request.auth.credentials;
       const theme = await db.themeStore.getThemeById(request.params.id);
       const flag = await themeController.checkUser(request, theme);
-      const newPlace = {
-        name: request.payload.name,
-        lon: request.payload.lon,
-        lat: request.payload.lat,
-        desc: request.payload.desc,
-      };
+      const newPlace = request.payload;
       if (flag) {
-        await db.placeStore.addPlace(theme._id, newPlace);
+        await db.placeStore.addPlace(loggedInUser._id, theme._id, newPlace);
         return h.redirect(`/theme/${theme._id}`);
       }
       return h.redirect("/logout");

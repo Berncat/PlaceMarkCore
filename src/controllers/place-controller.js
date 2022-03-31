@@ -23,8 +23,10 @@ export const placeController = {
     validate: {
       payload: PlaceSpec,
       options: { abortEarly: false },
-      failAction: function (request, h, error) {
-        return h.view("error-view", { title: "Update Place error", errors: error.details }).takeover().code(400);
+      failAction: async function (request, h, error) {
+        const theme = await db.themeStore.getThemeById(request.params.id);
+        const place = await db.placeStore.getPlaceById(request.params.placeid);
+        return h.view("place-view", { title: "Update Place error", theme, place, errors: error.details }).takeover().code(400);
       },
     },
     handler: async function (request, h) {
