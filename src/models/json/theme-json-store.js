@@ -12,9 +12,10 @@ export const themeJsonStore = {
     return db.data.themes;
   },
 
-  async addTheme(theme) {
+  async addTheme(userId, theme) {
     await db.read();
     theme._id = v4();
+    theme.userId = userId;
     db.data.themes.push(theme);
     await db.write();
     return theme;
@@ -22,8 +23,12 @@ export const themeJsonStore = {
 
   async getThemeById(id) {
     await db.read();
-    const list = db.data.themes.find((theme) => theme._id === id);
-    list.places = await placeJsonStore.getPlacesByThemeId(list._id);
+    let list = db.data.themes.find((theme) => theme._id === id);
+    if (list) {
+      list.places = await placeJsonStore.getPlacesByThemeId(list._id);
+    } else {
+      list = null;
+    }
     return list;
   },
 
@@ -35,14 +40,13 @@ export const themeJsonStore = {
   async deleteThemeById(id) {
     await db.read();
     const index = db.data.themes.findIndex((theme) => theme._id === id);
-    db.data.themes.splice(index, 1);
+    if (index !== -1) db.data.themes.splice(index, 1);
     await db.write();
   },
 
   async deleteUserThemes(userId) {
     await db.read();
     themes = themes.filter((theme) => theme.userId !== userId);
-    placeMemStore.deletePlacesByUserId(userId);
     await db.write();
   },
 

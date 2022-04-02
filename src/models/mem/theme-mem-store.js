@@ -8,16 +8,20 @@ export const themeMemStore = {
     return themes;
   },
 
-  async addTheme(theme) {
+  async addTheme(userId, theme) {
     theme._id = v4();
+    theme.userId = userId;
     themes.push(theme);
     return theme;
   },
 
   async getThemeById(id) {
     const list = themes.find((theme) => theme._id === id);
-    list.places = await placeMemStore.getPlacesByThemeId(list._id);
-    return list;
+    if (list) {
+      list.places = await placeMemStore.getPlacesByThemeId(list._id);
+      return list;
+    }
+    return null;
   },
 
   async getUserThemes(userId) {
@@ -26,13 +30,11 @@ export const themeMemStore = {
 
   async deleteThemeById(id) {
     const index = themes.findIndex((theme) => theme._id === id);
-    themes.splice(index, 1);
-    placeMemStore.deletePlacesByThemeId(id);
+    if (index !== -1) themes.splice(index, 1);
   },
 
   async deleteUserThemes(userId) {
     themes = themes.filter((theme) => theme.userId !== userId);
-    placeMemStore.deletePlacesByUserId(userId);
   },
 
   async deleteAllThemes() {

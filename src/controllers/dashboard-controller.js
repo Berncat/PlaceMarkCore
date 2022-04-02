@@ -27,11 +27,8 @@ export const dashboardController = {
     },
     handler: async function (request, h) {
       const loggedInUser = request.auth.credentials;
-      const newTheme = {
-        userId: loggedInUser._id,
-        name: request.payload.name,
-      };
-      await db.themeStore.addTheme(newTheme);
+      const newTheme = request.payload;
+      await db.themeStore.addTheme(loggedInUser._id, newTheme);
       return h.redirect("/dashboard");
     },
   },
@@ -42,6 +39,7 @@ export const dashboardController = {
       const flag = await dashboardController.checkUser(request, theme);
       if (flag) {
         await db.themeStore.deleteThemeById(theme._id);
+        await db.placeStore.deletePlacesByThemeId(theme._id);
         return h.redirect("/dashboard");
       }
       return h.redirect("/logout");
@@ -61,9 +59,7 @@ export const dashboardController = {
     handler: async function (request, h) {
       const theme = await db.themeStore.getThemeById(request.params.id);
       const flag = await dashboardController.checkUser(request, theme);
-      const updatedTheme = {
-        name: request.payload.name,
-      };
+      const updatedTheme = request.payload;
       if (flag) {
         await db.themeStore.updateTheme(theme, updatedTheme);
         return h.redirect("/dashboard");

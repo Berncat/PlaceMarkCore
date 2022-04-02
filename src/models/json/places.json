@@ -1,13 +1,3 @@
 {
-  "places": [
-    {
-      "name": "Test Place",
-      "lon": 50,
-      "lat": 100,
-      "desc": "Desc",
-      "_id": "2aefa1b4-1ea8-4a1b-b1e7-b5c7801d6bd7",
-      "themeId": "8ae5682d-430e-4911-95cb-786d65588e8c",
-      "userId": "a7dedf70-76f2-4aff-b7a7-4eee99ea2efd"
-    }
-  ]
+  "places": []
 }

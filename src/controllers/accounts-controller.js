@@ -30,8 +30,8 @@ export const accountsController = {
       const users = await db.userStore.getAllUsers();
       const flag = users.some((check) => check.email === user.email);
       if (flag) {
-        const errors = [{message: "email already in use by another user"}]
-        return h.view("signup-view", { title: "Sign up error", errors })
+        const errors = [{ message: "email already in use by another user" }];
+        return h.view("signup-view", { title: "Sign up error", errors });
       }
       await db.userStore.addUser(user);
       return h.redirect("/login");
@@ -83,7 +83,7 @@ export const accountsController = {
       return h.view("user-view", viewData);
     },
   },
-  
+
   updateUser: {
     validate: {
       payload: UserSpec,
@@ -100,8 +100,8 @@ export const accountsController = {
       const flag = users.some((check) => check.email === updatedUser.email);
       if (loggedInUser.email !== updatedUser.email) {
         if (flag) {
-          const errors = [{message: "email already in use by another user"}]
-          return h.view("user-view", { title: "Update User error", user: loggedInUser, errors })
+          const errors = [{ message: "email already in use by another user" }];
+          return h.view("user-view", { title: "Update User error", user: loggedInUser, errors });
         }
       }
       await db.userStore.updateUser(loggedInUser, updatedUser);

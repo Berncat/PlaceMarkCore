@@ -20,7 +20,9 @@ export const placeMemStore = {
   },
 
   async getPlaceById(id) {
-    return places.find((place) => place._id === id);
+    let p = places.find((place) => place._id === id);
+    if (p === undefined) p = null;
+    return p;
   },
 
   async getThemePlaces(themeId) {
@@ -29,7 +31,7 @@ export const placeMemStore = {
 
   async deletePlace(id) {
     const index = places.findIndex((place) => place._id === id);
-    places.splice(index, 1);
+    if (index !== -1) places.splice(index, 1);
   },
 
   async deletePlacesByThemeId(themeId) {

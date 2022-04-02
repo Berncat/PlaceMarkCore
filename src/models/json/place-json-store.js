@@ -28,7 +28,9 @@ export const placeJsonStore = {
 
   async getPlaceById(id) {
     await db.read();
-    return db.data.places.find((place) => place._id === id);
+    let p = db.data.places.find((place) => place._id === id);
+    if (p === undefined) p = null;
+    return p;
   },
 
   async getThemePlaces(themeId) {
@@ -39,7 +41,7 @@ export const placeJsonStore = {
   async deletePlace(id) {
     await db.read();
     const index = db.data.places.findIndex((place) => place._id === id);
-    db.data.places.splice(index, 1);
+    if (index !== -1) db.data.places.splice(index, 1);
     await db.write();
   },
 
