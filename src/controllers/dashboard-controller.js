@@ -1,40 +1,79 @@
 import { db } from "../models/db.js";
+import { ThemeSpec } from "../models/joi-schemas.js";
 
 export const dashboardController = {
   index: {
     handler: async function (request, h) {
-      const places = await db.placeStore.getAllPlaces();
+      const loggedInUser = request.auth.credentials;
+      const themes = await db.themeStore.getUserThemes(loggedInUser._id);
       const viewData = {
         title: "Place Mark Dashboard",
-        places: places,
+        user: loggedInUser,
+        themes: themes,
       };
       return h.view("dashboard-view", viewData);
     },
   },
 
-  addPlace: {
+  addTheme: {
+    validate: {
+      payload: ThemeSpec,
+      options: { abortEarly: false },
+      failAction: async function (request, h, error) {
+        const loggedInUser = request.auth.credentials;
+        const themes = await db.themeStore.getUserThemes(loggedInUser._id);
+        return h.view("dashboard-view", { title: "Add theme error", themes, errors: error.details }).takeover().code(400);
+      },
+    },
     handler: async function (request, h) {
-      const newPlace = {
-        name: request.payload.name,
-      };
-      await db.placeStore.addPlace(newPlace);
+      const loggedInUser = request.auth.credentials;
+      const newTheme = request.payload;
+      newTheme.userId = loggedInUser._id;
+      await db.themeStore.addTheme(newTheme);
       return h.redirect("/dashboard");
     },
   },
 
-  deletePlace: {
+  deleteTheme: {
     handler: async function (request, h) {
-      const place = await db.placeStore.getPlaceById(request.params.id);
-      await db.placeStore.deletePlaceById(place._id);
-      return h.redirect("/dashboard");
+      const theme = await db.themeStore.getThemeById(request.params.id);
+      const flag = await dashboardController.checkUser(request, theme);
+      if (flag) {
+        await db.placeStore.deletePlacesByThemeId(theme._id);
+        await db.themeStore.deleteThemeById(theme._id);
+        return h.redirect("/dashboard");
+      }
+      const errors = [{ message: "You tried to access a route you are not authorised to visit" }];
+      return h.view("login-view", { title: "Route error", errors });
     },
   },
 
-  updatePlace: {
-    handler: async function (request, h) {
-      const place = await db.placeStore.getPlaceById(request.params.id);
-      place.name = request.payload.name;
-      return h.redirect("/dashboard");
+  updateTheme: {
+    validate: {
+      payload: ThemeSpec,
+      options: { abortEarly: false },
+      failAction: async function (request, h, error) {
+        const loggedInUser = request.auth.credentials;
+        const themes = await db.themeStore.getUserThemes(loggedInUser._id);
+        return h.view("dashboard-view", { title: "Update theme error", themes, errors: error.details }).takeover().code(400);
+      },
     },
+    handler: async function (request, h) {
+      const theme = await db.themeStore.getThemeById(request.params.id);
+      const flag = await dashboardController.checkUser(request, theme);
+      const updatedTheme = request.payload;
+      if (flag) {
+        await db.themeStore.updateTheme(theme, updatedTheme);
+        return h.redirect("/dashboard");
+      }
+      const errors = [{ message: "You tried to access a route you are not authorised to visit" }];
+      return h.view("login-view", { title: "Route error", errors });
+    },
+  },
+
+  async checkUser(request, theme) {
+    const loggedInUser = request.auth.credentials;
+    const themes = await db.themeStore.getUserThemes(loggedInUser._id);
+    return themes.some((check) => check._id === theme._id);
   },
 };

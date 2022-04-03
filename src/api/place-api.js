@@ -20,11 +20,11 @@ export const placeApi = {
       try {
         const place = await db.placeStore.getPlaceById(request.params.id);
         if (!place) {
-          return Boom.notFound("No Place with this id");
+          return Boom.notFound("No place with this id");
         }
         return place;
       } catch (err) {
-        return Boom.serverUnavailable("Database Error");
+        return Boom.serverUnavailable("No place with this id");
       }
     },
   },
@@ -33,28 +33,11 @@ export const placeApi = {
     auth: false,
     handler: async function (request, h) {
       try {
-        const place = request.payload;
-        const newPlace = await db.placeStore.addPlace(place);
-        if (newPlace) {
-          return h.response(newPlace).code(201);
+        const place = await db.placeStore.addPlace(request.payload);
+        if (place) {
+          return h.response(place).code(201);
         }
         return Boom.badImplementation("error creating place");
-      } catch (err) {
-        return Boom.serverUnavailable("Database Error");
-      }
-    },
-  },
-
-  deleteOne: {
-    auth: false,
-    handler: async function (request, h) {
-      try {
-        const place = await db.placeStore.getPlaceById(request.params.id);
-        if (!place) {
-          return Boom.notFound("No Place with this id");
-        }
-        await db.placeStore.deletePlaceById(place._id);
-        return h.response().code(204);
       } catch (err) {
         return Boom.serverUnavailable("Database Error");
       }
@@ -69,6 +52,22 @@ export const placeApi = {
         return h.response().code(204);
       } catch (err) {
         return Boom.serverUnavailable("Database Error");
+      }
+    },
+  },
+
+  deleteOne: {
+    auth: false,
+    handler: async function (request, h) {
+      try {
+        const place = await db.placeStore.getPlaceById(request.params.id);
+        if (!place) {
+          return Boom.notFound("No Place with this id");
+        }
+        await db.placeStore.deletePlace(place._id);
+        return h.response().code(204);
+      } catch (err) {
+        return Boom.serverUnavailable("No Place with this id");
       }
     },
   },

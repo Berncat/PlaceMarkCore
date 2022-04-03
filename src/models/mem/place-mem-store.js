@@ -13,16 +13,41 @@ export const placeMemStore = {
     return place;
   },
 
-  async getPlaceById(id) {
-    return places.find((place) => place._id === id);
+  async getPlacesByThemeId(themeId) {
+    return places.filter((place) => place.themeId === themeId);
   },
 
-  async deletePlaceById(id) {
+  async getPlaceById(id) {
+    let p = places.find((place) => place._id === id);
+    if (p === undefined) p = null;
+    return p;
+  },
+
+  async getThemePlaces(themeId) {
+    return places.filter((place) => place.themeId === themeId);
+  },
+
+  async deletePlace(id) {
     const index = places.findIndex((place) => place._id === id);
-    places.splice(index, 1);
+    if (index !== -1) places.splice(index, 1);
+  },
+
+  async deletePlacesByThemeId(themeId) {
+    places = places.filter((place) => place.themeId !== themeId);
+  },
+
+  async deletePlacesByUserId(userId) {
+    places = places.filter((place) => userId !== place.userId);
   },
 
   async deleteAllPlaces() {
     places = [];
+  },
+
+  async updatePlace(place, updatedPlace) {
+    place.name = updatedPlace.name;
+    place.lon = updatedPlace.lon;
+    place.lat = updatedPlace.lat;
+    place.desc = updatedPlace.desc;
   },
 };

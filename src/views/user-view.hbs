@@ -1,0 +1,27 @@
+{{> menu active="user"}}
+
+<section class="section">
+  <h1 class="title">Update User Details</h1>
+  <form action="/user/update" method="POST">
+    <label class="label">Name</label>
+    <div class="field is-horizontal">
+      <div class="field-body">
+        <div class="field">
+          <input class="input" type="text" name="firstName" placeholder="Enter first name" value="{{user.firstName}}">
+        </div>
+        <div class="field">
+          <input class="input" type="text" name="lastName" placeholder="Enter last name" value="{{user.lastName}}">
+        </div>
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">Email</label> <input class="input" type="text" name="email" placeholder="Enter email" value="{{user.email}}">
+    </div>
+    <div class="field">
+      <label class="label">Password</label> <input class="input" type="password" name="password" placeholder="Enter Password" value="{{user.password}}">
+    </div>
+    <div class="field is-grouped">
+      <button class="button is-link">Submit</button>
+    </div>
+  </form>
+</section>

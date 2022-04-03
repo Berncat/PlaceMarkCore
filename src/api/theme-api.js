@@ -1,13 +1,13 @@
 import Boom from "@hapi/boom";
 import { db } from "../models/db.js";
 
-export const userApi = {
+export const themeApi = {
   find: {
     auth: false,
     handler: async function (request, h) {
       try {
-        const users = await db.userStore.getAllUsers();
-        return users;
+        const themes = await db.themeStore.getAllThemes();
+        return themes;
       } catch (err) {
         return Boom.serverUnavailable("Database Error");
       }
@@ -16,15 +16,15 @@ export const userApi = {
 
   findOne: {
     auth: false,
-    handler: async function (request, h) {
+    async handler(request) {
       try {
-        const user = await db.userStore.getUserById(request.params.id);
-        if (!user) {
-          return Boom.notFound("No User with this id");
+        const theme = await db.themeStore.getThemeById(request.params.id);
+        if (!theme) {
+          return Boom.notFound("No Theme with this id");
         }
-        return user;
+        return theme;
       } catch (err) {
-        return Boom.serverUnavailable("No User with this id");
+        return Boom.serverUnavailable("No Theme with this id");
       }
     },
   },
@@ -33,11 +33,12 @@ export const userApi = {
     auth: false,
     handler: async function (request, h) {
       try {
-        const user = await db.userStore.addUser(request.payload);
-        if (user) {
-          return h.response(user).code(201);
+        const theme = request.payload;
+        const newTheme = await db.themeStore.addTheme(theme);
+        if (newTheme) {
+          return h.response(newTheme).code(201);
         }
-        return Boom.badImplementation("error creating user");
+        return Boom.badImplementation("error creating theme");
       } catch (err) {
         return Boom.serverUnavailable("Database Error");
       }
@@ -48,14 +49,14 @@ export const userApi = {
     auth: false,
     handler: async function (request, h) {
       try {
-        const user = await db.userStore.getUserById(request.params.id);
-        if (!user) {
-          return Boom.notFound("No User with this id");
+        const theme = await db.themeStore.getThemeById(request.params.id);
+        if (!theme) {
+          return Boom.notFound("No Theme with this id");
         }
-        await db.userStore.deleteUserById(user._id);
+        await db.themeStore.deleteThemeById(theme._id);
         return h.response().code(204);
       } catch (err) {
-        return Boom.serverUnavailable("Database Error");
+        return Boom.serverUnavailable("No Theme with this id");
       }
     },
   },
@@ -64,7 +65,7 @@ export const userApi = {
     auth: false,
     handler: async function (request, h) {
       try {
-        await db.userStore.deleteAll();
+        await db.themeStore.deleteAllThemes();
         return h.response().code(204);
       } catch (err) {
         return Boom.serverUnavailable("Database Error");
