@@ -13,7 +13,8 @@ export const themeController = {
       if (flag) {
         return h.view("theme-view", viewData);
       }
-      return h.redirect("/logout");
+      const errors = [{ message: "You tried to access a route you are not authorised to visit" }];
+      return h.view("login-view", { title: "Route error", errors });
     },
   },
 
@@ -23,19 +24,22 @@ export const themeController = {
       options: { abortEarly: false },
       failAction: async function (request, h, error) {
         const theme = await db.themeStore.getThemeById(request.params.id);
-        return h.view("theme-view", { title: "Add Place error", theme, errors: error.details }).takeover().code(400);
+        return h.view("theme-view", { title: "Add place error", theme, errors: error.details }).takeover().code(400);
       },
     },
     handler: async function (request, h) {
-      const loggedInUser = request.auth.credentials;
       const theme = await db.themeStore.getThemeById(request.params.id);
       const flag = await themeController.checkUser(request, theme);
+      const loggedInUser = request.auth.credentials;
       const newPlace = request.payload;
+      newPlace.userId = loggedInUser._id;
+      newPlace.themeId = theme._id;
       if (flag) {
-        await db.placeStore.addPlace(loggedInUser._id, theme._id, newPlace);
+        await db.placeStore.addPlace(newPlace);
         return h.redirect(`/theme/${theme._id}`);
       }
-      return h.redirect("/logout");
+      const errors = [{ message: "You tried to access a route you are not authorised to visit" }];
+      return h.view("login-view", { title: "Route error", errors });
     },
   },
 
@@ -44,10 +48,11 @@ export const themeController = {
       const theme = await db.themeStore.getThemeById(request.params.id);
       const flag = await themeController.checkUser(request, theme);
       if (flag) {
-        await db.placeStore.deletePlace(request.params.placeid);
+        await db.placeStore.deletePlace(request.params.placeId);
         return h.redirect(`/theme/${theme._id}`);
       }
-      return h.redirect("/logout");
+      const errors = [{ message: "You tried to access a route you are not authorised to visit" }];
+      return h.view("login-view", { title: "Route error", errors });
     },
   },
 

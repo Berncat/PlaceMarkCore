@@ -20,8 +20,8 @@ export const webRoutes = [
 
   { method: "GET", path: "/theme/{id}", config: themeController.index },
   { method: "POST", path: "/theme/{id}/add", config: themeController.addPlace },
-  { method: "GET", path: "/theme/{id}/delete/{placeid}", config: themeController.deletePlace },
+  { method: "GET", path: "/theme/{id}/delete/{placeId}", config: themeController.deletePlace },
 
-  { method: "GET", path: "/theme/{id}/{placeid}", config: placeController.index },
-  { method: "POST", path: "/theme/{id}/update/{placeid}", config: placeController.updatePlace },
+  { method: "GET", path: "/theme/{id}/{placeId}", config: placeController.index },
+  { method: "POST", path: "/theme/{id}/update/{placeId}", config: placeController.updatePlace },
 ];

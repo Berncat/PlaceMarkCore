@@ -10,8 +10,9 @@ suite("Theme Model tests", () => {
     await db.userStore.deleteAll();
     await db.userStore.addUser(maggie);
     for (let i = 0; i < testThemes.length; i += 1) {
+      testThemes[i].userId = maggie._id;
       // eslint-disable-next-line no-await-in-loop
-      testThemes[i] = await db.themeStore.addTheme(maggie._id, testThemes[i]);
+      testThemes[i] = await db.themeStore.addTheme(testThemes[i]);
     }
   });
 
@@ -19,14 +20,12 @@ suite("Theme Model tests", () => {
     db.init(database);
     await db.themeStore.deleteAllThemes();
     await db.userStore.deleteAll();
-    console.log("Teardown");
-    console.log("Themes: ", await db.themeStore.getAllThemes());
-    console.log("Users:  ", await db.userStore.getAllUsers());
   });
 
   test("create a theme", async () => {
     await db.userStore.addUser(maggie);
-    const theme = await db.themeStore.addTheme(maggie._id, testTheme);
+    testTheme.userId = maggie._id;
+    const theme = await db.themeStore.addTheme(testTheme);
     assertSubset(testTheme, theme);
     assert.isDefined(theme._id);
   });
@@ -41,7 +40,8 @@ suite("Theme Model tests", () => {
 
   test("get a theme - success", async () => {
     await db.userStore.addUser(maggie);
-    const theme = await db.themeStore.addTheme(maggie._id, testTheme);
+    testTheme.userId = maggie._id;
+    const theme = await db.themeStore.addTheme(testTheme);
     assertSubset(testTheme, theme);
   });
 

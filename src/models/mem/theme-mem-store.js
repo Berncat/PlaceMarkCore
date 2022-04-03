@@ -8,9 +8,8 @@ export const themeMemStore = {
     return themes;
   },
 
-  async addTheme(userId, theme) {
+  async addTheme(theme) {
     theme._id = v4();
-    theme.userId = userId;
     themes.push(theme);
     return theme;
   },
@@ -45,3 +44,4 @@ export const themeMemStore = {
     theme.name = updatedTheme.name;
   },
 };
+

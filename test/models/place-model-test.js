@@ -4,18 +4,22 @@ import { database, maggie, testThemes, testTheme, testTheme2, testPlaces, testPl
 import { assertSubset } from "../test-utils.js";
 
 suite("Place Model tests", () => {
-  let testThemeList = null;
+  let user = null;
+  let testTheme2List = null;
 
   setup(async () => {
     db.init(database);
     await db.placeStore.deleteAllPlaces();
     await db.themeStore.deleteAllThemes();
     await db.userStore.deleteAll();
-    const newUser = await db.userStore.addUser(maggie);
-    testThemeList = await db.themeStore.addTheme(newUser._id, testTheme);
+    user = await db.userStore.addUser(maggie);
+    testTheme2.userId = user._id;
+    testTheme2List = await db.themeStore.addTheme(testTheme2);
     for (let i = 0; i < testPlaces.length; i += 1) {
+      testPlaces[i].userid = user._id;
+      testPlaces[i].themeId = testTheme2List._id;
       // eslint-disable-next-line no-await-in-loop
-      testPlaces[i] = await db.placeStore.addPlace(newUser._id, testThemeList._id, testPlaces[i]);
+      testPlaces[i] = await db.placeStore.addPlace(testPlaces[i]);
     }
   });
 
@@ -24,23 +28,22 @@ suite("Place Model tests", () => {
     await db.placeStore.deleteAllPlaces();
     await db.themeStore.deleteAllThemes();
     await db.userStore.deleteAll();
-    console.log("Teardown");
-    console.log("Places: ", await db.placeStore.getAllPlaces());
-    console.log("Themes: ", await db.themeStore.getAllThemes());
-    console.log("Users:  ", await db.userStore.getAllUsers());
   });
 
   test("create single place", async () => {
-    const newUser = await db.userStore.addUser(maggie);
-    const testTheme2List = await db.themeStore.addTheme(newUser._id, testTheme2);
-    const place = await db.placeStore.addPlace(newUser._id, testTheme2List._id, testPlace);
+    user = await db.userStore.addUser(maggie);
+    testTheme.userId = user._id;
+    const testThemeList = await db.themeStore.addTheme(testTheme);
+    testPlace.userid = user._id;
+    testPlace.themeId = testThemeList._id;
+    const place = await db.placeStore.addPlace(testPlace);
     assert.isNotNull(place._id);
     assertSubset(testPlace, place);
   });
 
   test("get multiple places", async () => {
-    const places = await db.placeStore.getPlacesByThemeId(testThemeList._id);
-    assert.equal(testPlaces.length, testPlaces.length);
+    const places = await db.placeStore.getPlacesByThemeId(testTheme2List._id);
+    assert.equal(testPlaces.length, places.length);
   });
 
   test("delete all places", async () => {
@@ -52,9 +55,12 @@ suite("Place Model tests", () => {
   });
 
   test("get a place - success", async () => {
-    const newUser = await db.userStore.addUser(maggie);
-    const testTheme2List = await db.themeStore.addTheme(newUser._id, testTheme2);
-    const place = await db.placeStore.addPlace(newUser._id, testTheme2List._id, testPlace);
+    user = await db.userStore.addUser(maggie);
+    testTheme.userId = user._id;
+    const testThemeList = await db.themeStore.addTheme(testTheme);
+    testPlace.userid = user._id;
+    testPlace.themeId = testThemeList._id;
+    const place = await db.placeStore.addPlace(testPlace);
     const newPlace = await db.placeStore.getPlaceById(place._id);
     assertSubset(testPlace, newPlace);
   });

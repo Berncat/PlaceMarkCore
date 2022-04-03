@@ -33,7 +33,7 @@ export const placeApi = {
     auth: false,
     handler: async function (request, h) {
       try {
-        const place = await db.placeStore.addPlace(request.params.id, request.payload);
+        const place = await db.placeStore.addPlace(request.payload);
         if (place) {
           return h.response(place).code(201);
         }

@@ -12,10 +12,9 @@ export const themeJsonStore = {
     return db.data.themes;
   },
 
-  async addTheme(userId, theme) {
+  async addTheme(theme) {
     await db.read();
     theme._id = v4();
-    theme.userId = userId;
     db.data.themes.push(theme);
     await db.write();
     return theme;
@@ -46,7 +45,7 @@ export const themeJsonStore = {
 
   async deleteUserThemes(userId) {
     await db.read();
-    themes = themes.filter((theme) => theme.userId !== userId);
+    themes = db.data.themes.filter((theme) => theme.userId !== userId);
     await db.write();
   },
 
@@ -56,8 +55,8 @@ export const themeJsonStore = {
   },
 
   async updateTheme(theme, updatedTheme) {
-    await db.read();
-    theme.name = updatedTheme.name;
+    const themeToUpdate = db.data.themes.find((update) => update._id === theme._id);
+    themeToUpdate.name = updatedTheme.name;
     await db.write();
   },
 };

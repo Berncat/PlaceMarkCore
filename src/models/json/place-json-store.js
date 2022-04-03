@@ -11,11 +11,9 @@ export const placeJsonStore = {
     return db.data.places;
   },
 
-  async addPlace(userId, themeId, place) {
+  async addPlace(place) {
     await db.read();
     place._id = v4();
-    place.themeId = themeId;
-    place.userId = userId;
     db.data.places.push(place);
     await db.write();
     return place;
@@ -35,7 +33,7 @@ export const placeJsonStore = {
 
   async getThemePlaces(themeId) {
     await db.read();
-    return places.filter((place) => place.themeId === themeId);
+    return db.data.places.filter((place) => place.themeId === themeId);
   },
 
   async deletePlace(id) {
@@ -47,13 +45,13 @@ export const placeJsonStore = {
 
   async deletePlacesByThemeId(themeId) {
     await db.read();
-    places = places.filter((place) => place.themeId !== themeId);
+    db.data.places = db.data.places.filter((place) => place.themeId !== themeId);
     await db.write();
   },
 
   async deletePlacesByUserId(userId) {
     await db.read();
-    places = places.filter((place) => userId !== place.userId);
+    db.data.places = db.data.places.filter((place) => userId !== place.userId);
     await db.write();
   },
 

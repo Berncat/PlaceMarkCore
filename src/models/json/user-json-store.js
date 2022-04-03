@@ -39,17 +39,18 @@ export const userJsonStore = {
     if (index !== -1) db.data.users.splice(index, 1);
     await db.write();
   },
-
+  
   async deleteAll() {
     db.data.users = [];
     await db.write();
   },
 
   async updateUser(user, updatedUser) {
-    user.firstName = updatedUser.firstName;
-    user.lastName = updatedUser.lastName;
-    user.email = updatedUser.email;
-    user.password = updatedUser.password;
+    const userToUpdate = db.data.users.find((update) => update._id === user._id);
+    userToUpdate.firstName = updatedUser.firstName;
+    userToUpdate.lastName = updatedUser.lastName;
+    userToUpdate.email = updatedUser.email;
+    userToUpdate.password = updatedUser.password;
     await db.write();
   },
 };

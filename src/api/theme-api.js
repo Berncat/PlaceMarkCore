@@ -24,7 +24,7 @@ export const themeApi = {
         }
         return theme;
       } catch (err) {
-        return Boom.serverUnavailable("Database Error");
+        return Boom.serverUnavailable("No Theme with this id");
       }
     },
   },
@@ -33,7 +33,7 @@ export const themeApi = {
     auth: false,
     handler: async function (request, h) {
       try {
-        const theme = request.payload;
+        const theme = request.payload
         const newTheme = await db.themeStore.addTheme(theme);
         if (newTheme) {
           return h.response(newTheme).code(201);
@@ -56,7 +56,7 @@ export const themeApi = {
         await db.themeStore.deleteThemeById(theme._id);
         return h.response().code(204);
       } catch (err) {
-        return Boom.serverUnavailable("Database Error");
+        return Boom.serverUnavailable("No Theme with this id");
       }
     },
   },

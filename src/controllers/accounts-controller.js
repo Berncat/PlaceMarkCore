@@ -90,7 +90,7 @@ export const accountsController = {
       options: { abortEarly: false },
       failAction: function (request, h, error) {
         const loggedInUser = request.auth.credentials;
-        return h.view("user-view", { title: "Update User error", user: loggedInUser, errors: error.details }).takeover().code(400);
+        return h.view("user-view", { title: "Update user error", user: loggedInUser, errors: error.details }).takeover().code(400);
       },
     },
     handler: async function (request, h) {
@@ -101,11 +101,11 @@ export const accountsController = {
       if (loggedInUser.email !== updatedUser.email) {
         if (flag) {
           const errors = [{ message: "email already in use by another user" }];
-          return h.view("user-view", { title: "Update User error", user: loggedInUser, errors });
+          return h.view("user-view", { title: "Update user error", user: loggedInUser, errors });
         }
       }
       await db.userStore.updateUser(loggedInUser, updatedUser);
-      return h.redirect("/dashboard");
+      return h.redirect("/user");
     },
   },
 

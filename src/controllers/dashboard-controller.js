@@ -22,13 +22,14 @@ export const dashboardController = {
       failAction: async function (request, h, error) {
         const loggedInUser = request.auth.credentials;
         const themes = await db.themeStore.getUserThemes(loggedInUser._id);
-        return h.view("dashboard-view", { title: "Add Theme error", themes, errors: error.details }).takeover().code(400);
+        return h.view("dashboard-view", { title: "Add theme error", themes, errors: error.details }).takeover().code(400);
       },
     },
     handler: async function (request, h) {
       const loggedInUser = request.auth.credentials;
       const newTheme = request.payload;
-      await db.themeStore.addTheme(loggedInUser._id, newTheme);
+      newTheme.userId = loggedInUser._id;
+      await db.themeStore.addTheme(newTheme);
       return h.redirect("/dashboard");
     },
   },
@@ -38,11 +39,12 @@ export const dashboardController = {
       const theme = await db.themeStore.getThemeById(request.params.id);
       const flag = await dashboardController.checkUser(request, theme);
       if (flag) {
-        await db.themeStore.deleteThemeById(theme._id);
         await db.placeStore.deletePlacesByThemeId(theme._id);
+        await db.themeStore.deleteThemeById(theme._id);
         return h.redirect("/dashboard");
       }
-      return h.redirect("/logout");
+      const errors = [{ message: "You tried to access a route you are not authorised to visit" }];
+      return h.view("login-view", { title: "Route error", errors });
     },
   },
 
@@ -53,7 +55,7 @@ export const dashboardController = {
       failAction: async function (request, h, error) {
         const loggedInUser = request.auth.credentials;
         const themes = await db.themeStore.getUserThemes(loggedInUser._id);
-        return h.view("dashboard-view", { title: "Update Theme error", themes, errors: error.details }).takeover().code(400);
+        return h.view("dashboard-view", { title: "Update theme error", themes, errors: error.details }).takeover().code(400);
       },
     },
     handler: async function (request, h) {
@@ -64,7 +66,8 @@ export const dashboardController = {
         await db.themeStore.updateTheme(theme, updatedTheme);
         return h.redirect("/dashboard");
       }
-      return h.redirect("/logout");
+      const errors = [{ message: "You tried to access a route you are not authorised to visit" }];
+      return h.view("login-view", { title: "Route error", errors });
     },
   },
 

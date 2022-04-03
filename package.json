@@ -7,7 +7,13 @@
   "scripts": {
     "start": "node src/server.js",
     "lint": "eslint . --ext .js",
-    "test": "mocha --ui tdd test/**/*.js"
+    "test": "mocha --ui tdd test/**/*.js",
+    "testmodels": "mocha --ui tdd test/models/**/*.js",
+    "testapi": "mocha --ui tdd test/api/**/*.js",
+    "dev": "nodemon src/server.js --ignore src/models/json/*.json --ignore src/models/json/*.tmp"
+  },
+  "engines": {
+    "node": "16.x"
   },
   "repository": {
     "type": "git",
@@ -23,6 +29,7 @@
   },
   "homepage": "https://github.com/Berncat/PlaceMarkCore#readme",
   "devDependencies": {
+    "axios": "^0.26.1",
     "chai": "*",
     "eslint": "^8.11.0",
     "eslint-config-airbnb-base": "^15.0.0",

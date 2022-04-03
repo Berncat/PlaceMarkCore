@@ -7,10 +7,8 @@ export const placeMemStore = {
     return places;
   },
 
-  async addPlace(userId, themeId, place) {
+  async addPlace(place) {
     place._id = v4();
-    place.themeId = themeId;
-    place.userId = userId;
     places.push(place);
     return place;
   },

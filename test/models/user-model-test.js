@@ -3,6 +3,7 @@ import { db } from "../../src/models/db.js";
 import { database, maggie, testUsers } from "../fixtures.js";
 import { assertSubset } from "../test-utils.js";
 
+
 suite("User Model tests", () => {
   setup(async () => {
     db.init(database);
@@ -16,8 +17,6 @@ suite("User Model tests", () => {
   teardown(async () => {
     db.init(database);
     await db.userStore.deleteAll();
-    console.log("Teardown");
-    console.log("Users:  ", await db.userStore.getAllUsers());
   });
 
   test("create a user", async () => {
@@ -61,3 +60,4 @@ suite("User Model tests", () => {
     assert.equal(testUsers.length, allUsers.length);
   });
 });
+
