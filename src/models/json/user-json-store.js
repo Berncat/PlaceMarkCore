@@ -39,7 +39,7 @@ export const userJsonStore = {
     if (index !== -1) db.data.users.splice(index, 1);
     await db.write();
   },
-  
+
   async deleteAll() {
     db.data.users = [];
     await db.write();

@@ -33,7 +33,7 @@ export const themeApi = {
     auth: false,
     handler: async function (request, h) {
       try {
-        const theme = request.payload
+        const theme = request.payload;
         const newTheme = await db.themeStore.addTheme(theme);
         if (newTheme) {
           return h.response(newTheme).code(201);
@@ -73,4 +73,3 @@ export const themeApi = {
     },
   },
 };
-

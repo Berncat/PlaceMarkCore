@@ -1,11 +1,11 @@
 {{#if errors}}
-  <div class="box content">
-    <h1 class="title">{{title}}</h1>
-    <p> There was a problem... </p>
-    <ul>
-      {{#each errors}}
-      <li>{{message}}</li>
-      {{/each}}
-    </ul>
-  </div>
+<div class="box content">
+  <h1 class="title">{{title}}</h1>
+  <p> There was a problem... </p>
+  <ul>
+    {{#each errors}}
+    {{message}}
+    {{/each}}
+  </ul>
+</div>
 {{/if}}
