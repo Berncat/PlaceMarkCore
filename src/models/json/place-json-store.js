@@ -31,11 +31,6 @@ export const placeJsonStore = {
     return p;
   },
 
-  async getThemePlaces(themeId) {
-    await db.read();
-    return db.data.places.filter((place) => place.themeId === themeId);
-  },
-
   async deletePlace(id) {
     await db.read();
     const index = db.data.places.findIndex((place) => place._id === id);

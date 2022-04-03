@@ -5,7 +5,8 @@ export const themeController = {
   index: {
     handler: async function (request, h) {
       const theme = await db.themeStore.getThemeById(request.params.id);
-      const flag = await themeController.checkUser(request, theme);
+      const loggedInUser = request.auth.credentials;
+      const flag = await db.themeStore.checkUser(loggedInUser, theme);
       const viewData = {
         title: theme.name,
         theme: theme,
@@ -29,8 +30,8 @@ export const themeController = {
     },
     handler: async function (request, h) {
       const theme = await db.themeStore.getThemeById(request.params.id);
-      const flag = await themeController.checkUser(request, theme);
       const loggedInUser = request.auth.credentials;
+      const flag = await db.themeStore.checkUser(loggedInUser, theme);
       const newPlace = request.payload;
       newPlace.userId = loggedInUser._id;
       newPlace.themeId = theme._id;
@@ -46,7 +47,8 @@ export const themeController = {
   deletePlace: {
     handler: async function (request, h) {
       const theme = await db.themeStore.getThemeById(request.params.id);
-      const flag = await themeController.checkUser(request, theme);
+      const loggedInUser = request.auth.credentials;
+      const flag = await db.themeStore.checkUser(loggedInUser, theme);
       if (flag) {
         await db.placeStore.deletePlace(request.params.placeId);
         return h.redirect(`/theme/${theme._id}`);
@@ -54,11 +56,5 @@ export const themeController = {
       const errors = [{ message: "You tried to access a route you are not authorised to visit" }];
       return h.view("login-view", { title: "Route error", errors });
     },
-  },
-
-  async checkUser(request, theme) {
-    const loggedInUser = request.auth.credentials;
-    const themes = await db.themeStore.getUserThemes(loggedInUser._id);
-    return themes.some((check) => check._id === theme._id);
   },
 };

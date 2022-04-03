@@ -5,7 +5,8 @@ export const placeController = {
   index: {
     handler: async function (request, h) {
       const theme = await db.themeStore.getThemeById(request.params.id);
-      const flag = await placeController.checkUser(request, theme);
+      const loggedInUser = request.auth.credentials;
+      const flag = await db.themeStore.checkUser(loggedInUser, theme);
       const place = await db.placeStore.getPlaceById(request.params.placeId);
       const viewData = {
         title: "Update",
@@ -32,7 +33,8 @@ export const placeController = {
     },
     handler: async function (request, h) {
       const theme = await db.themeStore.getThemeById(request.params.id);
-      const flag = await placeController.checkUser(request, theme);
+      const loggedInUser = request.auth.credentials;
+      const flag = await db.themeStore.checkUser(loggedInUser, theme);
       const place = await db.placeStore.getPlaceById(request.params.placeId);
       const newPlace = request.payload;
       if (flag) {
@@ -42,11 +44,5 @@ export const placeController = {
       const errors = [{ message: "You tried to access a route you are not authorised to visit" }];
       return h.view("login-view", { title: "Route error", errors });
     },
-  },
-
-  async checkUser(request, theme) {
-    const loggedInUser = request.auth.credentials;
-    const themes = await db.themeStore.getUserThemes(loggedInUser._id);
-    return themes.some((check) => check._id === theme._id);
   },
 };

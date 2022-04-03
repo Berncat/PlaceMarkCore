@@ -23,10 +23,6 @@ export const placeMemStore = {
     return p;
   },
 
-  async getThemePlaces(themeId) {
-    return places.filter((place) => place.themeId === themeId);
-  },
-
   async deletePlace(id) {
     const index = places.findIndex((place) => place._id === id);
     if (index !== -1) places.splice(index, 1);

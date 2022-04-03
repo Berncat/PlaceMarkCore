@@ -43,4 +43,9 @@ export const themeMemStore = {
   async updateTheme(theme, updatedTheme) {
     theme.name = updatedTheme.name;
   },
+
+  async checkUser(user, theme) {
+    const checkThemes = await themeMemStore.getUserThemes(user._id);
+    return checkThemes.some((check) => check._id === theme._id);
+  },
 };

@@ -1,6 +1,6 @@
 {
   "name": "placemarkcore",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "A point of interest web application",
   "main": "src/server.js",
   "type": "module",
@@ -47,6 +47,7 @@
     "handlebars": "^4.7.7",
     "joi": "^17.6.0",
     "lowdb": "^3.0.0",
+    "mongoose": "^6.2.9",
     "uuid": "^8.3.2"
   }
 }
