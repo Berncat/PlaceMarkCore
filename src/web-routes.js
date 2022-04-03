@@ -24,4 +24,6 @@ export const webRoutes = [
 
   { method: "GET", path: "/theme/{id}/{placeId}", config: placeController.index },
   { method: "POST", path: "/theme/{id}/update/{placeId}", config: placeController.updatePlace },
+
+  { method: "GET", path: "/{param*}", handler: { directory: { path: "./public" } }, options: { auth: false } }
 ];
