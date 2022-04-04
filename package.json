@@ -49,6 +49,7 @@
     "hapi-swagger": "^14.2.4",
     "joi": "^17.6.0",
     "lowdb": "^3.0.0",
+    "mais-mongoose-seeder": "^1.0.7",
     "mongoose": "^6.2.9",
     "nodemon": "^2.0.15",
     "uuid": "^8.3.2"

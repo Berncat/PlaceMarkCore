@@ -13,7 +13,7 @@ export const placeMongoStore = {
   },
 
   async getPlacesByThemeId(id) {
-    const places = await Place.find({ themeid: id }).lean();
+    const places = await Place.find({ themeId: id }).lean();
     return places;
   },
 

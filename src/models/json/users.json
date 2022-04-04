@@ -1,3 +1,18 @@
 {
-  "users": []
+  "users": [
+    {
+      "firstName": "Bernard",
+      "lastName": "Cattigan",
+      "email": "b.cattigan1@hotmail.com",
+      "password": "secret",
+      "_id": "942ccb27-b834-4839-8874-553deaf080f7"
+    },
+    {
+      "firstName": "Michelle",
+      "lastName": "Cattigan",
+      "email": "m.cattigan1@hotmail.com",
+      "password": "secret",
+      "_id": "941142f5-26c3-4354-9f4e-983b8aa5ad61"
+    }
+  ]
 }
