@@ -149,7 +149,7 @@ try and implement some of the features required for the outstanding release.
 
 - [x] [Basic](https://github.com/Berncat/PlaceMarkCore/releases/tag/1.0.0)
 - [x] [Good](https://github.com/Berncat/PlaceMarkCore/releases/tag/2.0.0)
-- [ ] Excellent
+- [x] [Excellent](https://github.com/Berncat/PlaceMarkCore/releases/tag/3.0.0) - Please note Categories feature from assignment spec was not met
 - [ ] Outstanding
 
 ### Basic
@@ -186,17 +186,17 @@ try and implement some of the features required for the outstanding release.
 ### Excellent
 
 - **Status:**
-  - Not Started
+  - [Released 3.0.0](https://github.com/Berncat/PlaceMarkCore/releases/tag/3.0.0) - Please note Categories from spec was not attained for this release
 - **Languages and Tools:**
   - JavaScript, Node, OpenAPI, Mongo, Mongo Atlas, Back End: @hapi/hapi, @hapi/vision, @hapi/boom, @hapi/cookie, @hapi/inert, @hapi/jwt, joi, Mongoose, eSlint, Prettier, Nodemon, Mocha, Chai, Uuid, dotEnv, Cloudinary, Axios, Swagger, Handlebars, Bulma, Font Awesome
 - **Structure:**
   - Users { name, email, \_.id }
-  - Themes { name, \_.id, userId, [Categories] }
-  - Places { name, lon, lat, desc, \_.id, themeId, userId, [Categories] }
+  - Themes { name, \_.id, userId }
+  - Places { name, lon, lat, desc, \_.id, themeId, userId } 
 - **API:**
-  - Open API (Swagger)
+  - [Open API (Swagger)](https://placemark2022-v2.glitch.me/documentation)
 - **Deployment**
-  - Cloud Atlas
+  - [Deployed on Glitch with Mongodb Atlas Cloud Database](https://placemark2022-v2.glitch.me/)
 
 ### Outstanding
 
@@ -206,8 +206,8 @@ try and implement some of the features required for the outstanding release.
   - JavaScript, Node, OpenAPI, Firebase, Heroku, @hapi/hapi, @hapi/vision, @hapi/boom, @hapi/cookie, @hapi/inert, @hapi/jwt, joi, Mongoose(Only if Firebase not adopted), eSlint, Prettier, Nodemon, Mocha, Chai, Uuid, dotEnv, Cloudinary, Axios, Swagger, Json Web Token, Handlebars, Bulma, Font Awesome, Leaflet
 - **Structure:**
   - Users { name, email, \_.id }
-  - Themes { name, \_.id, userId, [Catergories] }
-  - Places { name, lon, lat, desc, \_.id, themeId, userId, [Catergories] }
+  - Themes { name, \_.id, userId }
+  - Places { name, lon, lat, desc, \_.id, themeId, userId } 
 - **API:**
   - JWT
 - **Deployment**
