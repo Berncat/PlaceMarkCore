@@ -24,8 +24,8 @@ export const adminController = {
       if (admin.password !== password) {
         return h.redirect("/");
       }
-      request.cookieAuth.set({ id: user._id });
-      return h.redirect("admin/dashboard");
+      request.cookieAuth.set({ id: admin._id });
+      return h.redirect("/admin/dashboard");
     },
   },
 
