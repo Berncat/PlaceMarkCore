@@ -1,4 +1,4 @@
-export const database = ""; // Enter "" or "json"
+export const database = "mongo"; // Enter "" or "json" or "mongo"
 
 export const serviceUrl = "http://localhost:3000";
 

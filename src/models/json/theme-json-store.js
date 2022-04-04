@@ -59,4 +59,9 @@ export const themeJsonStore = {
     themeToUpdate.name = updatedTheme.name;
     await db.write();
   },
+
+  async checkUser(user, theme) {
+    const checkThemes = await themeJsonStore.getUserThemes(user._id);
+    return checkThemes.some((check) => check._id === theme._id);
+  },
 };

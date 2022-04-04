@@ -38,7 +38,7 @@ suite("Theme API tests", () => {
 
   test("create multiple themes", async () => {
     for (let i = 0; i < testThemes.length; i += 1) {
-      testThemes[i].userid = user._id;
+      testThemes[i].userId = user._id;
       // eslint-disable-next-line no-await-in-loop
       await placemarkService.createTheme(testThemes[i]);
     }

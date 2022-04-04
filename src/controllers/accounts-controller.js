@@ -33,6 +33,9 @@ export const accountsController = {
         const errors = [{ message: "email already in use by another user" }];
         return h.view("signup-view", { title: "Sign up error", errors });
       }
+      if (user.email === "admin@placemark.com") {
+        user.scope = ["admin"];
+      }
       await db.userStore.addUser(user);
       return h.redirect("/login");
     },
@@ -61,6 +64,9 @@ export const accountsController = {
         return h.redirect("/");
       }
       request.cookieAuth.set({ id: user._id });
+      if (user.email === "admin@placemark.com") {
+        return h.redirect("/admin/dashboard");
+      }
       return h.redirect("/dashboard");
     },
   },
@@ -80,6 +86,10 @@ export const accountsController = {
         title: "User Dashboard",
         user: loggedInUser,
       };
+      if (loggedInUser.email === "admin@placemark.com") {
+        const errors = [{ message: "Admin User cannot be updated" }];
+        return h.view("admin-login-view", { title: "Update user error", errors });
+      }
       return h.view("user-view", viewData);
     },
   },
@@ -98,6 +108,10 @@ export const accountsController = {
       const loggedInUser = request.auth.credentials;
       const users = await db.userStore.getAllUsers();
       const flag = users.some((check) => check.email === updatedUser.email);
+      if (loggedInUser.email === "admin@placemark.com") {
+        const errors = [{ message: "Admin User cannot be updated" }];
+        return h.view("admin-login-view", { title: "Update user error", errors });
+      }
       if (loggedInUser.email !== updatedUser.email) {
         if (flag) {
           const errors = [{ message: "email already in use by another user" }];
