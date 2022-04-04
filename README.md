@@ -149,7 +149,7 @@ try and implement some of the features required for the outstanding release.
 
 - [x] [Basic](https://github.com/Berncat/PlaceMarkCore/releases/tag/1.0.0)
 - [x] [Good](https://github.com/Berncat/PlaceMarkCore/releases/tag/2.0.0)
-- [x] [Excellent](https://github.com/Berncat/PlaceMarkCore/releases/tag/3.0.0) - Please note Catergories feature from assignment spec was not met
+- [x] [Excellent](https://github.com/Berncat/PlaceMarkCore/releases/tag/3.0.0) - Please note Categories feature from assignment spec was not met
 - [ ] Outstanding
 
 ### Basic
@@ -186,7 +186,7 @@ try and implement some of the features required for the outstanding release.
 ### Excellent
 
 - **Status:**
-  - [Released 3.0.0](https://github.com/Berncat/PlaceMarkCore/releases/tag/3.0.0) - Please note Catergories from spec was not attained for this release
+  - [Released 3.0.0](https://github.com/Berncat/PlaceMarkCore/releases/tag/3.0.0) - Please note Categories from spec was not attained for this release
 - **Languages and Tools:**
   - JavaScript, Node, OpenAPI, Mongo, Mongo Atlas, Back End: @hapi/hapi, @hapi/vision, @hapi/boom, @hapi/cookie, @hapi/inert, @hapi/jwt, joi, Mongoose, eSlint, Prettier, Nodemon, Mocha, Chai, Uuid, dotEnv, Cloudinary, Axios, Swagger, Handlebars, Bulma, Font Awesome
 - **Structure:**
