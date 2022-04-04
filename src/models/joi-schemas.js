@@ -15,6 +15,7 @@ export const UserSpec = UserCredentialsSpec.keys({
 }).label("UserDetails");
 
 export const UserSpecPlus = UserSpec.keys({
+  scope: Joi.array().allow("").optional(),
   _id: IdSpec,
   __v: Joi.number(),
 }).label("UserDetailsPlus");
@@ -53,3 +54,9 @@ export const ThemeSpecPlus = ThemeSpec.keys({
 }).label("ThemePlus");
 
 export const ThemeArraySpec = Joi.array().items(ThemeSpecPlus).label("ThemeArray");
+
+export const AdminCredentialsSpec = Joi.object()
+  .keys({
+    password: Joi.string().example("secret").required(),
+  })
+  .label("AdminCredentials");

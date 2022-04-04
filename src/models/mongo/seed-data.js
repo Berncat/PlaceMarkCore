@@ -13,6 +13,13 @@ export const seedData = {
       email: "m.cattigan1@hotmail.com",
       password: "secret",
     },
+    admin: {
+      firstName: "Place",
+      lastName: "Mark",
+      email: "admin@placemark.com",
+      password: "secret",
+      scope: ["admin"]
+    },
   },
   themes: {
     _model: "Theme",

@@ -1,0 +1,15 @@
+{{> admin-menu }}
+
+<section class="content">
+  <h1 class="title">Admin Log in</h1>
+  <form action="/admin/authenticate" method="POST">
+    <div class="field">
+      <label class="label">Password</label>
+      <input class="input" type="password" placeholder="Enter Password" name="password" />
+    </div>
+    <br />
+    <div class="field is-grouped">
+      <button class="button is-link">Submit</button>
+    </div>
+  </form>
+</section>
