@@ -46,9 +46,11 @@
     "@hapi/vision": "^6.1.0",
     "dotenv": "^16.0.0",
     "handlebars": "^4.7.7",
+    "hapi-swagger": "^14.2.4",
     "joi": "^17.6.0",
     "lowdb": "^3.0.0",
     "mongoose": "^6.2.9",
+    "nodemon": "^2.0.15",
     "uuid": "^8.3.2"
   }
 }

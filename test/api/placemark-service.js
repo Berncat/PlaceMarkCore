@@ -55,8 +55,8 @@ export const placemarkService = {
     return res.data;
   },
 
-  async createPlace(id, place) {
-    const res = await axios.post(`${this.placemarkUrl}/api/places/${id}`, place);
+  async createPlace(place) {
+    const res = await axios.post(`${this.placemarkUrl}/api/places`, place);
     return res.data;
   },
 

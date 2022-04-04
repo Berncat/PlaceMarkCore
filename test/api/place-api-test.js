@@ -25,13 +25,13 @@ suite("Place API tests", () => {
   });
 
   test("create place", async () => {
-    const returnedPlace = await placemarkService.createPlace(testPlace.themeId, testPlace);
+    const returnedPlace = await placemarkService.createPlace(testPlace);
     assertSubset(testPlace, returnedPlace);
   });
 
   test("create Multiple places", async () => {
     for (let i = 0; i < testPlaces.length; i += 1) {
-      testPlaces[i].userid = user._id;
+      testPlaces[i].userId = user._id;
       testPlaces[i].themeId = testThemeList._id;
       // eslint-disable-next-line no-await-in-loop
       await placemarkService.createPlace(testPlaces[i]);
@@ -47,7 +47,7 @@ suite("Place API tests", () => {
 
   test("Delete PlaceApi", async () => {
     for (let i = 0; i < testPlaces.length; i += 1) {
-      testPlaces[i].userid = user._id;
+      testPlaces[i].userId = user._id;
       // eslint-disable-next-line no-await-in-loop
       await placemarkService.createPlace(testPlaces[i]);
     }
@@ -63,10 +63,10 @@ suite("Place API tests", () => {
 
   test("denormalised theme", async () => {
     for (let i = 0; i < testPlaces.length; i += 1) {
-      testPlaces[i].userid = user._id;
+      testPlaces[i].userId = user._id;
       testPlaces[i].themeId = testThemeList._id;
       // eslint-disable-next-line no-await-in-loop
-      await placemarkService.createPlace(testPlaces[i].themeId, testPlaces[i]);
+      await placemarkService.createPlace(testPlaces[i]);
     }
     const returnedTheme = await placemarkService.getTheme(testThemeList._id);
     assert.equal(returnedTheme.places.length, testPlaces.length);

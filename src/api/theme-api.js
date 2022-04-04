@@ -1,5 +1,7 @@
 import Boom from "@hapi/boom";
+import { IdSpec, ThemeArraySpec, ThemeSpec, ThemeSpecPlus } from "../models/joi-schemas.js";
 import { db } from "../models/db.js";
+import { validationError } from "./logger.js";
 
 export const themeApi = {
   find: {
@@ -12,6 +14,10 @@ export const themeApi = {
         return Boom.serverUnavailable("Database Error");
       }
     },
+    tags: ["api"],
+    response: { schema: ThemeArraySpec, failAction: validationError },
+    description: "Get all themes",
+    notes: "Returns all themes",
   },
 
   findOne: {
@@ -27,6 +33,11 @@ export const themeApi = {
         return Boom.serverUnavailable("No Theme with this id");
       }
     },
+    tags: ["api"],
+    description: "Find a Theme",
+    notes: "Returns a theme",
+    validate: { params: { id: IdSpec }, failAction: validationError },
+    response: { schema: ThemeSpecPlus, failAction: validationError },
   },
 
   create: {
@@ -43,6 +54,11 @@ export const themeApi = {
         return Boom.serverUnavailable("Database Error");
       }
     },
+    tags: ["api"],
+    description: "Create a Theme",
+    notes: "Returns the newly created theme",
+    validate: { payload: ThemeSpec, failAction: validationError },
+    response: { schema: ThemeSpecPlus, failAction: validationError },
   },
 
   deleteOne: {
@@ -59,6 +75,9 @@ export const themeApi = {
         return Boom.serverUnavailable("No Theme with this id");
       }
     },
+    tags: ["api"],
+    description: "Delete a theme",
+    validate: { params: { id: IdSpec }, failAction: validationError },
   },
 
   deleteAll: {
@@ -71,5 +90,7 @@ export const themeApi = {
         return Boom.serverUnavailable("Database Error");
       }
     },
+    tags: ["api"],
+    description: "Delete all ThemeApi",
   },
 };

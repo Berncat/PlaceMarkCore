@@ -16,7 +16,7 @@ suite("Place Model tests", () => {
     testTheme2.userId = user._id;
     testTheme2List = await db.themeStore.addTheme(testTheme2);
     for (let i = 0; i < testPlaces.length; i += 1) {
-      testPlaces[i].userid = user._id;
+      testPlaces[i].userId = user._id;
       testPlaces[i].themeId = testTheme2List._id;
       // eslint-disable-next-line no-await-in-loop
       testPlaces[i] = await db.placeStore.addPlace(testPlaces[i]);
@@ -34,7 +34,7 @@ suite("Place Model tests", () => {
     user = await db.userStore.addUser(maggie);
     testTheme.userId = user._id;
     const testThemeList = await db.themeStore.addTheme(testTheme);
-    testPlace.userid = user._id;
+    testPlace.userId = user._id;
     testPlace.themeId = testThemeList._id;
     const place = await db.placeStore.addPlace(testPlace);
     assert.isNotNull(place._id);
@@ -58,7 +58,7 @@ suite("Place Model tests", () => {
     user = await db.userStore.addUser(maggie);
     testTheme.userId = user._id;
     const testThemeList = await db.themeStore.addTheme(testTheme);
-    testPlace.userid = user._id;
+    testPlace.userId = user._id;
     testPlace.themeId = testThemeList._id;
     const place = await db.placeStore.addPlace(testPlace);
     const newPlace = await db.placeStore.getPlaceById(place._id);
