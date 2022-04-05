@@ -1,0 +1,32 @@
+<form action="/theme/{{theme._id}}/update/{{place._id}}" method="POST" class="panel is-dark">
+  <p class="panel-heading"><a class="button is-danger is-light" href="/theme/{{theme._id}}" >{{theme.name}}</a>
+  <div class="field-body panel-block">
+    <div class="field">
+      <label class="label">Name</label>
+      <input class="input" type="text" name="name" placeholder="Enter Name" value="{{place.name}}">
+    </div>
+  </div>
+  <div class="field-body panel-block">
+    <div class="field">
+      <label class="label">Longitude</label>
+      <input class="input" type="text" name="lon" placeholder="Enter Longitude" value="{{place.lon}}">
+    </div>
+  </div>
+  <div class="field-body panel-block">
+    <div class="field">
+      <label class="label">Latitude</label>
+      <input class="input" type="text" name="lat" placeholder="Enter Latitude" value="{{place.lat}}">
+    </div>
+  </div>
+  <div class="field-body panel-block">
+    <div class="field">
+      <label class="label">Description</label>
+      <input class="input textarea " type="text" name="desc" placeholder="Enter Description" value="{{place.desc}}">
+    </div>
+  </div>
+  <div class="panel-block">
+    <button class="button is-danger is-fullwidth">
+      Update Details
+    </button>
+  </div>
+</form>

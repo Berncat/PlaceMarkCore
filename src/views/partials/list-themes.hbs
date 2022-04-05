@@ -1,22 +1,90 @@
-{{#each themes}}
-<div class="box box-link-hover-shadow">
-  <h2 class="title">
-    {{name}}
-    <a href="/theme/{{_id}}" class="button">
-      <span class="icon is-small">
-        <i class="fas fa-folder-open"></i>
-      </span>
-    </a>
-    <a href="/dashboard/delete/{{_id}}" class="button">
-      <i class="fas fa-trash"></i>
-    </a>
-  </h2>
-  <form action="/dashboard/update/{{_id}}" method="POST">
-    <div class="field">
-      <label class="label">Update Place Mark App Theme Name</label>
-      <input class="input" type="text" placeholder="Enter new name for Place Mark app theme" name="name" />
+<div class="columns is-multiline">
+  {{#each themes}}
+    <div class="column is-one-quarter">
+      <div class="card">
+        <div class="card-content">
+          <p class="title is-3">{{name}}</p>
+          <div class="buttons has-addons">
+            <a href="/theme/{{_id}}" class="button is-dark is-small is-fullwidth">View</a>
+            <a class="js-modal-trigger button is-light is-small is-fullwidth" data-target="{{_id}}">Update</a>
+            <a href="/dashboard/delete/{{_id}}" class="button is-danger is-light is-small is-fullwidth">Delete</a>
+          </div>
+        </div>
+      </div>
     </div>
-    <button class="button is-link">Update</button>
-  </form>
+  {{/each}}
+</div>
+
+{{#each themes}}
+<div id="{{_id}}" class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-content">
+    <div class="box">
+<form action="/dashboard/update/{{_id}}" method="POST" class="panel is-danger">
+  <p class="panel-heading">Update Place Mark</p>
+  <div class="field-body panel-block">
+    <div class="field">
+      <label class="label">Name</label>
+      <input class="input" type="text" placeholder="Enter name" value="{{name}}" name="name" />
+    </div>
+  </div>
+  <div class="panel-block">
+    <button class="button is-dark is-fullwidth">
+      Submit
+    </button>
+  </div>
+</form>
+    </div>
+  </div>
+  <button class="modal-close is-large" aria-label="close"></button>
 </div>
 {{/each}}
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // Functions to open and close a modal
+  function openModal($el) {
+    $el.classList.add('is-active');
+  }
+
+  function closeModal($el) {
+    $el.classList.remove('is-active');
+  }
+
+  function closeAllModals() {
+    (document.querySelectorAll('.modal') || []).forEach(($modal) => {
+      closeModal($modal);
+    });
+  }
+
+  // Add a click event on buttons to open a specific modal
+  (document.querySelectorAll('.js-modal-trigger') || []).forEach(($trigger) => {
+    const modal = $trigger.dataset.target;
+    const $target = document.getElementById(modal);
+    console.log($target);
+
+    $trigger.addEventListener('click', () => {
+      openModal($target);
+    });
+  });
+
+  // Add a click event on various child elements to close the parent modal
+  (document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button') || []).forEach(($close) => {
+    const $target = $close.closest('.modal');
+
+    $close.addEventListener('click', () => {
+      closeModal($target);
+    });
+  });
+
+  // Add a keyboard event to close all modals
+  document.addEventListener('keydown', (event) => {
+    const e = event || window.event;
+
+    if (e.keyCode === 27) { // Escape key
+      closeAllModals();
+    }
+  });
+});
+</script>

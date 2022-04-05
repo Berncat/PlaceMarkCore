@@ -7,7 +7,7 @@ export const dashboardController = {
       const loggedInUser = request.auth.credentials;
       const themes = await db.themeStore.getUserThemes(loggedInUser._id);
       const viewData = {
-        title: "Place Mark Dashboard",
+        title: "Dashboard",
         user: loggedInUser,
         themes: themes,
       };

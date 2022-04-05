@@ -1,0 +1,21 @@
+<div id="map" class="content"></div>
+<script>
+  // initialize Leaflet 
+  var map = L.map('map').setView({lon: -7.6921, lat: 53.45}, 7); 
+  // add the OpenStreetMap tiles 
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19, 
+    attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>' 
+  }).addTo(map); 
+  // show the scale bar on the lower left corner
+  L.control.scale({imperial: true, metric: true}).addTo(map);
+</script>
+
+{{#each theme.places}}
+  <script>
+    // show a marker on the map
+    L.marker(["{{lat}}","{{lon}}"]).bindPopup("<a href=/theme/{{themeId}}/{{_id}}>View details</a>" ).bindTooltip("{{name}}, {{lat}}, {{lon}}").addTo(map);
+  </script>
+{{/each}}
+
+{{! Credit for map code goes to https://switch2osm.org/using-tiles/getting-started-with-leaflet/ }}
