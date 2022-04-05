@@ -1,3 +1,21 @@
 {
-  "users": []
+  "users": [
+    {
+      "firstName": "Bernard",
+      "lastName": "Cattigan",
+      "email": "b.cattigan1@hotmail.com",
+      "password": "secret",
+      "_id": "aea474a9-ba71-4342-bd2b-7fa9e1e87f4a"
+    },
+    {
+      "firstName": "Bernard",
+      "lastName": "Cattigan",
+      "email": "admin@placemark.com",
+      "password": "secret",
+      "scope": [
+        "admin"
+      ],
+      "_id": "ba2062de-57e4-4fa4-9cd4-345def304ae3"
+    }
+  ]
 }

@@ -1,7 +1,14 @@
-<form action="/dashboard/add" method="POST">
-  <div class="field">
-    <label class="label">Place Mark App Theme</label>
-    <input class="input" type="text" placeholder="Enter name of Place Mark app theme" name="name" />
+<form action="/dashboard/add" method="POST" class="panel is-danger">
+  <p class="panel-heading">Add Place Mark</p>
+  <div class="field-body panel-block">
+    <div class="field">
+      <label class="label">Name</label>
+      <input class="input" type="text" placeholder="Enter name" name="name" />
+    </div>
   </div>
-  <button class="button is-link">Add Place Mark App Theme</button>
+  <div class="panel-block">
+    <button class="button is-dark is-fullwidth">
+      Submit
+    </button>
+  </div>
 </form>

@@ -39,7 +39,7 @@ export const placeController = {
       const newPlace = request.payload;
       if (flag) {
         await db.placeStore.updatePlace(place, newPlace);
-        return h.redirect(`/theme/${request.params.id}`);
+        return h.redirect(`/theme/${request.params.id}/${place._id}`);
       }
       const errors = [{ message: "You tried to access a route you are not authorised to visit" }];
       return h.view("login-view", { title: "Route error", errors });

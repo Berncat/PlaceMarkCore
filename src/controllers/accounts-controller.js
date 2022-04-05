@@ -12,7 +12,7 @@ export const accountsController = {
   showSignup: {
     auth: false,
     handler: function (request, h) {
-      return h.view("signup-view", { title: "Sign up for Place Mark" });
+      return h.view("signup-view", { title: "Sign up" });
     },
   },
 
@@ -22,7 +22,7 @@ export const accountsController = {
       payload: UserSpec,
       options: { abortEarly: false },
       failAction: function (request, h, error) {
-        return h.view("signup-view", { title: "Sign up error", errors: error.details }).takeover().code(400);
+        return h.view("signup-view", { title: "Sign up", errors: error.details }).takeover().code(400);
       },
     },
     handler: async function (request, h) {
@@ -44,7 +44,7 @@ export const accountsController = {
   showLogin: {
     auth: false,
     handler: function (request, h) {
-      return h.view("login-view", { title: "Login to Place Mark" });
+      return h.view("login-view", { title: "Login" });
     },
   },
 
@@ -83,7 +83,7 @@ export const accountsController = {
     handler: function (request, h) {
       const loggedInUser = request.auth.credentials;
       const viewData = {
-        title: "User Dashboard",
+        title: "Update User Details",
         user: loggedInUser,
       };
       if (loggedInUser.email === "admin@placemark.com") {

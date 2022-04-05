@@ -1,6 +1,15 @@
-<br>
+<div class="tabs is-centered is-medium">
+  <ul>
+    <li id="user"><a href="/">Home</a></li>
+  </ul>
+</div>
+
+<script>
+  document.getElementById("{{active}}").classList.add('is-active');
+</script>
+
 <section class="content">
-  <h1 class="title">Admin Log in</h1>
+  {{> title}}
   <form action="/admin/authenticate" method="POST">
     <div class="field">
       <label class="label">Password</label>
@@ -8,7 +17,7 @@
     </div>
     <br />
     <div class="field is-grouped">
-      <button class="button is-link">Submit</button>
+      <button class="button is-danger is-fullwidth">Submit</button>
     </div>
   </form>
 </section>
