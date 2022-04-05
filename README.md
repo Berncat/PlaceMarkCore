@@ -209,7 +209,7 @@ try and implement some of the features required for the outstanding release.
   - Themes { name, \_.id, userId }
   - Places { name, lon, lat, desc, \_.id, themeId, userId } 
 - **API:**
-  - No Update from Release 3.0.0
+  - [Open API (Swagger)](https://nameless-falls-43996.herokuapp.com/documentation)
 - **Deployment**
   - [Deployed on Heroku](https://nameless-falls-43996.herokuapp.com/)
 
