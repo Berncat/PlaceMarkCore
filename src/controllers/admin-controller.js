@@ -5,6 +5,7 @@ export const adminController = {
   index: {
     auth: false,
     handler: function (request, h) {
+      request.cookieAuth.clear();
       return h.view("admin-login-view", { title: "Admin" });
     },
   },

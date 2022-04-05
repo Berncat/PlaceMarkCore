@@ -65,7 +65,7 @@ export const accountsController = {
       }
       request.cookieAuth.set({ id: user._id });
       if (user.email === "admin@placemark.com") {
-        return h.redirect("/admin/dashboard");
+        return h.redirect("/admin");
       }
       return h.redirect("/dashboard");
     },
