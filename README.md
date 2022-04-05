@@ -150,7 +150,7 @@ try and implement some of the features required for the outstanding release.
 - [x] [Basic](https://github.com/Berncat/PlaceMarkCore/releases/tag/1.0.0)
 - [x] [Good](https://github.com/Berncat/PlaceMarkCore/releases/tag/2.0.0)
 - [x] [Excellent](https://github.com/Berncat/PlaceMarkCore/releases/tag/3.0.0) - Please note Categories feature from assignment spec was not met
-- [ ] Outstanding
+- [x] [Outstanding](https://github.com/Berncat/PlaceMarkCore/releases/tag/4.0.0) - Please note Admin Analytics, Images, JWT and Firebase from assignment spec were not met
 
 ### Basic
 
@@ -201,7 +201,7 @@ try and implement some of the features required for the outstanding release.
 ### Outstanding
 
 - **Status:**
-  - Not Started
+  - [Released 4.0.0](https://github.com/Berncat/PlaceMarkCore/releases/tag/4.0.0) - Please note Admin Analytics, Images, JWT and Firebase from assignment spec were not met
 - **Languages and Tools:**
   - JavaScript, Node, OpenAPI, Firebase, Heroku, @hapi/hapi, @hapi/vision, @hapi/boom, @hapi/cookie, @hapi/inert, @hapi/jwt, joi, Mongoose(Only if Firebase not adopted), eSlint, Prettier, Nodemon, Mocha, Chai, Uuid, dotEnv, Cloudinary, Axios, Swagger, Json Web Token, Handlebars, Bulma, Font Awesome, Leaflet
 - **Structure:**
@@ -209,9 +209,9 @@ try and implement some of the features required for the outstanding release.
   - Themes { name, \_.id, userId }
   - Places { name, lon, lat, desc, \_.id, themeId, userId } 
 - **API:**
-  - JWT
+  - No Update from Release 3.0.0
 - **Deployment**
-  - Heroku
+  - [Deployed on Heroku](https://nameless-falls-43996.herokuapp.com/)
 
 ---
 
